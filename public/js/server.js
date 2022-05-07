@@ -49,15 +49,8 @@ app.get('/notes', function (req,res) {
   res.sendFile(path.join(__dirname, '/public/notes.html'));
 });
 
-
-
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+// Start 
+app.listen(PORT, function () {
+  console.log('App listening on PORT:' + PORT);
 });
 
-app.get('/api/terms', (req, res) => res.json(termData));
-
-app.listen(PORT, () => {
-  console.log(`Example app listening at http://localhost:${PORT}`);
-});
