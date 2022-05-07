@@ -37,13 +37,20 @@ app.delete('/api/notes/:id', (req,res) => {
   })
 
 
+// HTNL pages 
+
+// Home page (index.html)
+app.get('/', function (req,res) {
+  res.sendFile(path.join(__dirname, '/public/index.html'));
+});
+
+// notes.html
+app.get('/notes', function (req,res) {
+  res.sendFile(path.join(__dirname, '/public/notes.html'));
+});
 
 
-// Sets up the Express app to handle data parsing
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 
-app.use(express.static('public'));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
