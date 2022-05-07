@@ -1,11 +1,26 @@
 const express = require('express');
-const path = require('path');
-const fs = require('fs');
-const util = require ('util');
+const fs = require ('fs');
+const notes = require('./db/db.json');
+const path = require ('path');
+const uuid = require ('uuid');
+const {DH_CHECK_P_NOT_SAFE} = require ('constants');
 
-// util to create promises .
-const readFileAsync = util.promisify(fs.readFile);
-const writeFileAsync = util.promisify(fs.writeFileSync);
+const app = express();
+var PORT = process.env.PORT || 4023;
+
+// Middleware 
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+app.use(express.static('public'));
+
+// Routes for APIs
+// gets notes saved & joins it in db.json
+app.get('/api/notes',(req,res) => {
+  res.sendFile(path.join(__dirname, '/db/db.json'))
+});
+
+// Post function to add notes to db 
+
 
 
 
