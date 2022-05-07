@@ -14,12 +14,21 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Routes for APIs
-// gets notes saved & joins it in db.json
+// GET notes saved & joins it in db.json
 app.get('/api/notes',(req,res) => {
   res.sendFile(path.join(__dirname, '/db/db.json'))
 });
 
-// Post function to add notes to db 
+//POST function to add new notes to db.json
+app.post('/api/notes', (req,res) => {
+  const notes = JSON.parse(fs.readFileSync('./db/db.json'));
+  const newNotes = req.body;
+  newNotes.id = uuid.v4();
+  fs.writeFileSync('./db/db.json', JSON.stringify (notes))
+  res.json(notes);
+});
+
+
 
 
 
