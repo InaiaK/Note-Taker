@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require ('fs');
 const notes = require('./db/db.json');
 const path = require ('path');
-const uuid = require ('uuid');
+const uuid = require ('uuid'); // unique ID for each note
 const {DH_CHECK_P_NOT_SAFE} = require ('constants');
 
 const app = express();
@@ -28,7 +28,13 @@ app.post('/api/notes', (req,res) => {
   res.json(notes);
 });
 
-
+// DELETE notes
+app.delete('/api/notes/:id', (req,res) => {
+  const notes = JSON.parse(fs.readFileSync('./db/db.json'));
+  const delNote = notes.filter((rmvNote) => rmvNote.id !== req.params.id);
+  fs.writeFileSync('./db/db.json', JSON.stringify(delNote));
+  res.json(delNote);
+  })
 
 
 
